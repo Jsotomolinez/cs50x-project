@@ -1,14 +1,19 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f3f2f2;
+  --primary: #d8e2de;
+  --secondary: #d3ea23;
+  --tertiary: #95a70d;
+  --text_primary: #070706;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --primary: #181818;
+    --secondary: #c1d61f;
+    --tertiary: #f8f8f8;
   }
-}
+} */
 
 html,
 body {
@@ -35,8 +40,8 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
+} */

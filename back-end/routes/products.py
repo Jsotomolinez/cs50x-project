@@ -56,6 +56,7 @@ async def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
         id=product.id,
         name=product.name,
         description=product.description,
+        image=product.image,
         price=product.price,
         department=department.name,
         brand=brand.name,
