@@ -10,7 +10,7 @@
 - Hacer carro de compras en local storage. (enviar a db como lista de deseos o compra)
 - Añadir paginación.
 - Añadir esqueltons.
-- Añadir paginas de detalles de productos.
-- Añadir pag para carro de compras.
+<!-- - Añadir paginas de detalles de productos. -->
+<!-- - Añadir pag para carro de compras. -->
 - Agregar admin.
 

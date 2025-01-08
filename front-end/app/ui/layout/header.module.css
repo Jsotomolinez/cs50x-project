@@ -86,6 +86,13 @@
     opacity: 1;
 }
 
+.nav_link_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .nav_link {
     text-align: center;
     width: 100%;

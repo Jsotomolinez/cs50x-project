@@ -1,0 +1,11 @@
+.remove {
+    text-align: center;
+    background-color: var(--primary);
+    border-radius: 0.2rem;
+    border: 0.2rem solid var(--secondary);
+}
+
+.remove_button {
+    all: unset;
+    cursor: pointer;
+}

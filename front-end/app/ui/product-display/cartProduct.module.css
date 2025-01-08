@@ -1,0 +1,9 @@
+.conteiner {
+    display: flex;
+    padding: 0.5rem;
+    background-color: var(--primary);
+    justify-content: space-between;
+    align-items: center;
+    height: fit-content;
+    border-radius: 1rem;
+}

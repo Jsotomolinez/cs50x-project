@@ -5,8 +5,9 @@ import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 
+import { ProductInfo, CartItem } from '../../definitons/general';
 
-import { ProductInfo } from '../../definitons/general';
+import { addItemToCart } from "@/app/logic/cart";
 
 import styles from "./card.module.css";
 
@@ -15,6 +16,7 @@ export default function Card({productInfo}: {productInfo: ProductInfo}) {
     const size = 100;
     const [quantity, setQuantity] = useState(1);
     const [changed, setChanged] = useState(false);
+
 
     const handleIncrement = (action: string) => {
         if (action === "increment") {
@@ -27,6 +29,14 @@ export default function Card({productInfo}: {productInfo: ProductInfo}) {
             setQuantity(quantity - 1);
         }
     };
+
+    const addItem = () => {
+        const cartItem: CartItem = {
+            id: productInfo.id,
+            quantity: quantity
+        }
+        addItemToCart({ cartItem })
+    }
 
     
     return (
@@ -69,6 +79,7 @@ export default function Card({productInfo}: {productInfo: ProductInfo}) {
                 </div>
                 <button
                 className={styles.add_to_cart}
+                onClick={addItem}
                 >🛒</button>
             </div>
         </div>
