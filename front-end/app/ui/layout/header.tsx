@@ -4,7 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
-import SearchBar from './searchBar';
+// import SearchBar from './searchBar';
+import { CartIcon } from '../icons/icons';
 
 import { Brand, Department, Line } from '@/app/definitons/general';
 import config from '@/app/config.json'
@@ -47,12 +48,14 @@ export default function Header(){
               height={75}
               width={75}
               />
-              <h2>CS50 Store</h2>
+              <h2>{config.name}</h2>
             </Link>
           </div>
-        <SearchBar/>
+        {/* <SearchBar/> */}
         <div className={styles.buttons}>
-            <Link href='/cart'>🛒</Link>
+            <Link href='/cart'>
+              <CartIcon size={3}/>
+            </Link>
         </div>
       </div>
       <nav>

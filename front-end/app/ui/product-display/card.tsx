@@ -7,6 +7,8 @@ import Link from "next/link";
 
 import { ProductInfo, CartItem } from '../../definitons/general';
 
+import { AddToCart, Quantity } from "../buttons/buttons";
+
 import { addItemToCart } from "@/app/logic/cart";
 
 import styles from "./card.module.css";
@@ -64,23 +66,14 @@ export default function Card({productInfo}: {productInfo: ProductInfo}) {
                 <p>{productInfo.price} $</p>
             </div>
             <div className={styles.buttons}>
-                <div className={styles.quantity}>
-                    <button
-                    id={styles.minus_button}
-                    onClick={()=> {handleIncrement('decrement')}}>
-                        -
-                    </button>
-                    <span>{changed ? quantity: ''}</span>
-                    <button
-                    id={styles.plus_button}
-                    onClick={()=> {handleIncrement('increment')}}>
-                        +
-                    </button>
-                </div>
-                <button
-                className={styles.add_to_cart}
-                onClick={addItem}
-                >🛒</button>
+                <Quantity 
+                  action={handleIncrement}
+                  quantity={quantity}
+                  changed={changed}
+                />
+                <AddToCart
+                  action={addItem}
+                />
             </div>
         </div>
     );

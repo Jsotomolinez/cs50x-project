@@ -4,9 +4,11 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import { ProductInfo } from "@/app/definitons/general";
+import { CartItem, ProductInfo } from "@/app/definitons/general";
 
 import styles from './productDetails.module.css'
+import { addItemToCart } from "@/app/logic/cart";
+import { AddToCart, Quantity } from "../buttons/buttons";
 
 export default function ProductDetails({productInfo}: {productInfo: ProductInfo}) {
 
@@ -24,6 +26,16 @@ export default function ProductDetails({productInfo}: {productInfo: ProductInfo}
         setQuantity(quantity - 1);
         }
     };
+
+    const addItem = () => {
+            const cartItem: CartItem = {
+                id: productInfo.id,
+                quantity: quantity
+            }
+            addItemToCart({ cartItem })
+        }
+
+    
 
   return (
     <>
@@ -46,22 +58,14 @@ export default function ProductDetails({productInfo}: {productInfo: ProductInfo}
           <span>{productInfo.price} $</span>
         </div>
         <div className={styles.buttons}>
-        <div className={styles.quantity}>
-          <button
-            id={styles.minus_button}
-            onClick={()=> {handleIncrement('decrement')}}>
-            -
-          </button>
-          <span>{changed ? quantity: ''}</span>
-          <button
-            id={styles.plus_button}
-            onClick={()=> {handleIncrement('increment')}}>
-            +
-          </button>
-        </div>
-        <button
-          className={styles.add_to_cart}
-        >🛒</button>
+        <Quantity 
+          action={handleIncrement}
+          quantity={quantity}
+          changed={changed}
+        />
+        <AddToCart
+          action={addItem}
+        />
         </div>
       </div>
     </div>

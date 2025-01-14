@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-import Card from "../ui/product-display/card";
-import { ProductInfo } from "../definitons/general";
+import Card from "../../ui/product-display/card";
+import { ProductInfo } from "../../definitons/general";
 import config from '@/app/config.json'
 
 import styles from './page.module.css'

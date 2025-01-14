@@ -1,0 +1,24 @@
+.icon_1 {
+    color: var(--text_primary);
+    height: 1rem;
+    width: 1rem;
+}
+
+.icon_2 {
+    color: var(--text_primary);
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.icon_3 {
+    color: var(--text_primary);
+    height: 2rem;
+    width: 2rem;
+}
+
+.icon_4 {
+    color: var(--text_primary);
+    height: 2.5rem;
+    width: 2.5rem;
+}
+

@@ -3,6 +3,6 @@
     grid-template-columns: repeat(4, 1fr);
     padding: 1rem;
     gap: 1rem;
-    background: linear-gradient(to bottom, var(--primary), var(--secondary));
+    background: linear-gradient(to bottom, var(--background), var(--secondary));
 
 }
