@@ -1,7 +1,6 @@
 .conteiner {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* background-color: aqua; */
     padding: 1rem;
     background: linear-gradient(to bottom, var(--primary), var(--primary), var(--primary), var(--secondary));
 

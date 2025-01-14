@@ -37,3 +37,15 @@ export interface Line {
     name: string;
 }
 
+export interface CartItem {
+    id: number;
+    quantity: number;
+}
+
+export interface CartProductInfo {
+    id: number;
+    name: string;
+    price: number;
+    line: string;
+    quantity: number;
+}

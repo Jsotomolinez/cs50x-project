@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 // import { useRouter } from 'next/router';
 import { useSearchParams } from "next/navigation";
 
-import { ProductInfo } from "../definitons/general";
-import config from '../config.json';
+import { ProductInfo } from "../../definitons/general";
+import config from '../../config.json';
 
 // import styles from './page.module.css'
-import ProductDetails from "../ui/product-display/productDetails";
+import ProductDetails from "../../ui/product-display/productDetails";
 
 export default function Page() {
   const searchParams = useSearchParams();
