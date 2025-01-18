@@ -25,5 +25,18 @@ export async function fetchProductsById(): Promise<ProductInfo[] | null> {
     return info;
 }
 
-
+export
+ function sendCart(
+  { action, info }:
+  {
+    action: 'transaction' | 'wishlist',
+    info: JSON
+  }
+) {
+  const url = `${config.rootURL}/${action}/${info}`;
+  fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(info)
+  })
+}
   
