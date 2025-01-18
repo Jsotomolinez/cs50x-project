@@ -116,22 +116,17 @@ class Provider_db(BaseModel):
 
 
 ########### Transaction models ############
-
-class Transaction_info(BaseModel):
-    product_id: int
-    quantity: int
-    price: float
-
 class Transaction_create(BaseModel):
-    user_id: int
-    info: List[Transaction_info]
+    product_id: int
+    quantantity: int
     total_price: float
     date: str
 
 class Transaction_db(BaseModel):
-    id: int
+    id: str
     user_id: int
-    info: List[Transaction_info]
+    product_id: int
+    quantantity: int
     total_price: float
     date: str
 
