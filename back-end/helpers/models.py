@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 ########### User models ############
 class User_info(BaseModel):
@@ -115,18 +116,22 @@ class Provider_db(BaseModel):
 
 
 ########### Transaction models ############
+
+class Transaction_info(BaseModel):
+    product_id: int
+    quantity: int
+    price: float
+
 class Transaction_create(BaseModel):
     user_id: int
-    product_id: int
-    quantantity: int
+    info: List[Transaction_info]
     total_price: float
     date: str
 
 class Transaction_db(BaseModel):
     id: int
     user_id: int
-    product_id: int
-    quantantity: int
+    info: List[Transaction_info]
     total_price: float
     date: str
 

@@ -1,33 +1,56 @@
 .card {
-    background-color: aqua;
+    background-color: var(--primary);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    border-radius: 0.5rem;
-    border: 2px solid black;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);     
     overflow: hidden;
     height: 30rem;
+    border-radius: 1rem;
     width: 20rem;
+    padding: 0.5rem;
+    /* background: linear-gradient(to bottom, var(--primary), var(--primary), var(--primary), var(--secondary)); */
 }
 
 .image_container {
-    height: 15rem;
-    width: auto;
+    height: 20rem;
+    width: 100%;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: inherit;
+    border-radius: 0.5rem;
 }
 
+.link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+    width: inherit;
+    /* transition: 0.2s ease-in-out; */
+}
 .image {
+    border-radius: 0.5rem;
     height: inherit;
     width: auto;
+    transition: 0.2s ease-in-out;
 }
 
-.product_info {
+.image:hover {
+    transform: scale(1.1);
+}
+
+
+.details {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* align-items: start; */
-    /* gap: 0.2rem; */
-    /* padding: 0.1rem; */
+    align-items: start;
+    gap: 0.2rem;
+    padding: 0.1rem;
+    border-bottom: 1px solid var(--text_primary);
+    width: 100%;
 }
 
 .buttons {
@@ -35,16 +58,6 @@
     justify-content: space-between;
     padding: 0.2rem;
     cursor: pointer;
-}
-
-.quantity {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.2rem;
-    width: 50%;
-}
-
-.add_to_cart {
-    cursor: pointer;
+    width: 90%;
+    height: 2rem;
 }

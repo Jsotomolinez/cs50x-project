@@ -1,0 +1,54 @@
+.remove {
+    text-align: center;
+    background-color: var(--primary);
+    border-radius: 0.2rem;
+    border: 0.2rem solid var(--tertiary);
+    padding: 0.2rem;
+}
+
+.remove button {
+    all: unset;
+    cursor: pointer;
+}
+
+
+.quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+    outline: 1px solid var(--text_primary);
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.quantity  button {
+    all: unset;
+    text-align: center;
+    cursor: pointer;
+    height: 80%;
+    width: 1.5rem;
+}
+
+#minus_button {
+    border-right: 1px solid var(--text_primary);
+}
+
+#plus_button {
+    border-left: 1px solid var(--text_primary);
+}
+
+.add_to_cart {
+    all: unset;
+    cursor: pointer;
+    text-align: center;
+    background-color: var(--secondary);
+    width: 50%;
+    outline: 1px solid var(--text_primary);
+    border-radius: 0.5rem;
+    transition: ease-in 0.1s;
+}
+
+.add_to_cart:hover {
+    background-color: var(--tertiary);
+}

@@ -3,6 +3,7 @@ from sqlalchemy.dialects.sqlite import UUID
 from sqlalchemy import CheckConstraint, Column, Integer, String, Float, ForeignKey, Boolean, Time, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from typing import List
 
 
 Base = declarative_base()

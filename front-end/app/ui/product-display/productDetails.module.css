@@ -1,0 +1,79 @@
+.conteiner {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 1rem;
+    background: linear-gradient(to bottom, var(--primary), var(--primary), var(--primary), var(--secondary));
+
+}
+
+.image_conteiner {
+    /* background-color: blueviolet; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image {
+    width: 60%;
+    height: auto;
+    border-radius: 1rem;
+    border: 3px solid var(--tertiary);
+}
+
+.info_conteiner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    /* background-color: brown; */
+}
+
+.details h2, .details p {
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.2rem;
+    cursor: pointer;
+    width: 90%;
+    height: 2rem;
+}
+
+.quantity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40%;
+    outline: 1px solid var(--text_primary);
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.quantity  button {
+    all: unset;
+    text-align: center;
+    cursor: pointer;
+    height: 80%;
+    width: 1.5rem;
+}
+
+#minus_button {
+    border-right: 1px solid var(--text_primary);
+}
+
+#plus_button {
+    border-left: 1px solid var(--text_primary);
+}
+
+.add_to_cart {
+    all: unset;
+    cursor: pointer;
+    text-align: center;
+    background-color: var(--secondary);
+    width: 50%;
+    outline: 1px solid var(--text_primary);
+    border-radius: 0.5rem;
+}

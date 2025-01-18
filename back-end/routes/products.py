@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 
 from sqlalchemy.orm import Session
 from helpers.models import Product_info, Product_db, Product_create
 from db.connection import get_db
 from db.schema import Product, Line, Brand, Department
-# from typing import List
+from typing import List
 
 products_router = APIRouter(prefix='/products', tags=["Products"])
 
@@ -13,6 +13,37 @@ products_router = APIRouter(prefix='/products', tags=["Products"])
 async def get_products(db: Session = Depends(get_db)):
     '''Get all products'''
     products = db.query(Product).all()
+    products_info = []
+    for product in products:
+        department = db.query(Department).filter(Department.id == product.department_id).first()
+        if department is None:
+            raise HTTPException(status_code=404, detail="Product's department not found")
+        brand = db.query(Brand).filter(Brand.id == product.brand_id).first()
+        if brand is None:
+            raise HTTPException(status_code=404, detail="Product's brand not found")
+        line = db.query(Line).filter(Line.id == product.line_id).first()
+        if line is None:
+            raise HTTPException(status_code=404, detail="Product's line not found")
+        products_info.append(Product_info(
+            id=product.id,
+            name=product.name,
+            description=product.description,
+            image=product.image,
+            price=product.price,
+            department=department.name,
+            brand=brand.name,
+            line=line.name
+        ))
+    return products_info
+
+
+@products_router.get("/by_ids/", response_model=List[Product_info])
+async def get_products_by_ids(product_ids: List[int] = Query(...), db: Session = Depends(get_db)):
+    if not product_ids:
+        raise HTTPException(status_code=400, detail="Product IDs list cannot be empty")
+    products = db.query(Product).filter(Product.id.in_(product_ids)).all()
+    if not products:
+        raise HTTPException(status_code=404, detail="No products found")
     products_info = []
     for product in products:
         department = db.query(Department).filter(Department.id == product.department_id).first()
@@ -56,6 +87,7 @@ async def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
         id=product.id,
         name=product.name,
         description=product.description,
+        image=product.image,
         price=product.price,
         department=department.name,
         brand=brand.name,

@@ -27,22 +27,29 @@ async def get_departments(db: Session = Depends(get_db)):
 
 
 @departments_router.get('/products/', response_model=List[Product_info])
-async def get_products_by_department(department_id: int, db: Session = Depends(get_db)):
+async def get_products_by_department(id: int, db: Session = Depends(get_db)):
     products_info = []
-    products = db.query(Product).filter(Product.department_id == department_id).all()
+    products = db.query(Product).filter(Product.department_id == id).all()
     for product in products:
-        department_name = db.query(Department).filter(Department.id == product.department_id).first()
-        brand_name = db.query(Brand).filter(Brand.id == product.brand_id).first()
-        line_name = db.query(Line).filter(Line.id == product.line_id).first()
+        department = db.query(Department).filter(Department.id == product.department_id).first()
+        if not department:
+            raise HTTPException(status_code=404, detail='Department not found')
+        brand = db.query(Brand).filter(Brand.id == product.brand_id).first()
+        if not brand:
+            raise HTTPException(status_code=404, detail='Brand not found')
+        line = db.query(Line).filter(Line.id == product.line_id).first()
+        if not line:
+            raise HTTPException(status_code=404, detail='Line not found')
         products_info.append(Product_info(
+            id=product.id,
             name=product.name,
             description=product.description,
             image=product.image,
             cost=product.cost,
             price=product.price,
-            department=department_name,
-            brand=brand_name,
-            line=line_name
+            department=department.name,
+            brand=brand.name,
+            line=line.name
         ))
     return products_info
 

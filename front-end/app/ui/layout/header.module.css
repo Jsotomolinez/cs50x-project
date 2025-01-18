@@ -2,15 +2,25 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    background-color: var(--secondary);
 }
 
 .container {
     align-items: center;
-    border: 1px solid #ccc;
     display: flex;
     height: fit-content;
     justify-content: space-between;
     padding: 0.5rem 2rem;
+}
+
+.logo_container {
+    padding: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons {
@@ -25,10 +35,71 @@
     margin: 0;
     padding: 0.5rem;
     gap: 1rem;
-    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px 2px rgba(0, 0, 0, 0.2);
+    background-color: var(--tertiary); 
+    color: var(--text_primary);
 }
 
 .nav a {
     color: inherit;
     text-decoration: none;
+}
+
+
+.dropdwond {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    width: 10rem;
+    cursor: pointer;
+}
+
+.dropdown_button {
+    all: unset;
+    text-align: center;
+    width: 10rem;
+    cursor: pointer;
+}
+
+.dropdown_content {
+    
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    background-color: var(--tertiary);
+    width: 10rem;
+    padding-top: 1rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: 0.3s ease-out;
+}
+
+.dropdown:hover .dropdown_content{
+    visibility: visible;
+    opacity: 1;
+}
+
+.nav_link_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav_link {
+    text-align: center;
+    width: 100%;
+    height: 1.5rem;
+    transition: 0.2s ease-in-out;
+}
+
+.nav_link:hover {
+    background-color: var(--secondary);
 }
