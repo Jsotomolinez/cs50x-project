@@ -10,8 +10,8 @@ import config from '@/app/config.json'
 
 import { getItemsFromCart } from "../../logic/cart";
 
-
 import styles from './page.module.css'
+
 
 export default function ShopCar() {
 

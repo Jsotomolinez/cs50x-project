@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, Time, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
+from typing import List
 
 
 Base = declarative_base()
@@ -67,7 +68,7 @@ class Product(Base):
 class Transaction(Base):
     __tablename__ = 'transactions'
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
+    mode = Column(String)
     info = Column(JSON)
     total_price = Column(Float)
     time = Column(Time)
