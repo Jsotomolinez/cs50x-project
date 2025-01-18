@@ -1,4 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, Boolean, Time, JSON
+import uuid
+from sqlalchemy.dialects.sqlite import UUID
+from sqlalchemy import CheckConstraint, Column, Integer, String, Float, ForeignKey, Boolean, Time, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -66,10 +68,8 @@ class Product(Base):
 
 class Transaction(Base):
     __tablename__ = 'transactions'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('users.id'))
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    role = Column(String, CheckConstraint("role IN ('buy', 'wishlist')"), nullable=False)
     info = Column(JSON)
     total_price = Column(Float)
     time = Column(Time)
-
-    user = relationship("User")
