@@ -4,29 +4,29 @@ from datetime import datetime
 from uuid import UUID
 
 
-########### User models ############
-class User_info(BaseModel):
-    username: str
-    email: str
-    phone_number: str
-    favorites: str
+# ########### User models ############
+# class User_info(BaseModel):
+#     username: str
+#     email: str
+#     phone_number: str
+#     favorites: str
 
-class User_create(BaseModel):
-    username: str
-    email: str
-    password: str
-    phone_number: str
+# class User_create(BaseModel):
+#     username: str
+#     email: str
+#     password: str
+#     phone_number: str
 
-class User_db(BaseModel):    
-    id: int
-    username: str
-    email: str
-    password: str
-    phone_number: str
-    favorites: str
+# class User_db(BaseModel):    
+#     id: int
+#     username: str
+#     email: str
+#     password: str
+#     phone_number: str
+#     favorites: str
 
-    class Config:
-        from_attributes = True 
+#     class Config:
+#         from_attributes = True 
 
 
 ########### Product models ############
