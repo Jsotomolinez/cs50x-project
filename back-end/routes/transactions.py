@@ -11,12 +11,13 @@ transactions_router = APIRouter(prefix='/transactions', tags=['transactions'])
 
 @transactions_router.post('/create/', response_model=Transaction_db)
 async def create_transaction(transaction: Transaction_create, db: Session = Depends(get_db)):
-    db_transaction = Transaction_create(
-        user_id=transaction.user_id,
-        product_id=transaction.product_id,
-        quantantity=transaction.quantantity,
-        total_price=transaction.total_price,
-        time=transaction.time
+    total = 0
+    for i in transaction.info:
+        total += i.quantantity * i.price
+    db_transaction = Transaction(
+        role=transaction.role,
+        info=[dict(i) for i in transaction.info],
+        total_price=round(total, 2)
     )
     db.add(db_transaction)
     db.commit()

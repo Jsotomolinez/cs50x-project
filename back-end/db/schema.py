@@ -1,9 +1,10 @@
 import uuid
-from sqlalchemy.dialects.sqlite import UUID
-from sqlalchemy import CheckConstraint, Column, Integer, String, Float, ForeignKey, Boolean, Time, JSON
+from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import CheckConstraint, Column, Integer, String, Float, ForeignKey, Boolean, DateTime, JSON
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
 from typing import List
+import datetime
 
 
 Base = declarative_base()
@@ -73,4 +74,4 @@ class Transaction(Base):
     role = Column(String, CheckConstraint("role IN ('buy', 'wishlist')"), nullable=False)
     info = Column(JSON)
     total_price = Column(Float)
-    time = Column(Time)
+    time = Column(DateTime, default=datetime.datetime.now())
