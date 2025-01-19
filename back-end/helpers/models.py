@@ -1,5 +1,8 @@
 from pydantic import BaseModel
-from typing import List
+from typing import List, Literal
+from datetime import datetime
+from uuid import UUID
+
 
 ########### User models ############
 class User_info(BaseModel):
@@ -48,18 +51,8 @@ class Product_create(BaseModel):
     line_id: int
     provider_id: int
 
-class Product_db(BaseModel):
+class Product_db(Product_create):
     id: int
-    name: str
-    description: str
-    image: str
-    cost: float
-    price: float
-    department_id: int
-    brand_id: int
-    line_id: int
-    provider_id: int
-
     class Config:
         from_attributes = True
 
@@ -116,19 +109,20 @@ class Provider_db(BaseModel):
 
 
 ########### Transaction models ############
+
+class Transaction_info(BaseModel):
+    product_id: int
+    quantantity: int
+    price: float
+
 class Transaction_create(BaseModel):
-    product_id: int
-    quantantity: int
-    total_price: float
-    date: str
+    role: Literal['buy', 'whishlist']
+    info: List[Transaction_info]
 
-class Transaction_db(BaseModel):
-    id: str
-    user_id: int
-    product_id: int
-    quantantity: int
+class Transaction_db(Transaction_create):
+    id: UUID
+    time: datetime
     total_price: float
-    date: str
-
     class Config:
         from_attributes = True
+
