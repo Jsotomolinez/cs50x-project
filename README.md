@@ -4,7 +4,7 @@
 
 ## Backend:
 <!-- - Hacer bulto en la base de datos. -->
-- Eliminar la tabla de usuarios.
+<!-- - Eliminar la tabla de usuarios. -->
 
 ## Frontend:
 - Hacer carro de compras en local storage. (enviar a db como lista de deseos o compra)
