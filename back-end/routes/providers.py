@@ -9,10 +9,12 @@ from db.schema import Provider
 providers_router = APIRouter(prefix='/providers', tags=['providers'])
 
 @providers_router.post('/create/', response_model=Provider_db)
-async def create_brand(brand: Provider_info, db: Session = Depends(get_db)):
+async def create_brand(provider: Provider_info, db: Session = Depends(get_db)):
     '''Creates a new provider'''
     db_provider = Provider(
-        name = brand.name
+        name = provider.name,
+        phone_number = provider.phone_number,
+        email = provider.email,
     )
     db.add(db_provider)
     db.commit()

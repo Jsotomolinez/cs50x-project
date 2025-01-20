@@ -16,7 +16,7 @@ async def create_line(line: Line_info, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail='Department does not exists')
     db_line = Line(
         name = line.name,
-        department_id = department
+        department_id = department.id
     )
     db.add(db_line)
     db.commit()
