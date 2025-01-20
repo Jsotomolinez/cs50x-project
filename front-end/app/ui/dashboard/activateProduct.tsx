@@ -22,13 +22,10 @@ export default function ActivateProduct() {
       console.error('Product ID is required');
       return;
     }
+    const action = activado? 'activate': 'deactivate';
 
-    const response = await fetch(`${config.rootURL}/products/${productId}/activate`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ activado }),
+    const response = await fetch(`${config.rootURL}/products/${action}/${productId}`, {
+      method: 'PUT',
     });
 
     if (response.ok) {

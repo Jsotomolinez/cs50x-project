@@ -8,7 +8,7 @@ def populate(db):
     brands(db)
     providers(db)
     lines(db)
-    products(db)
+    # products(db)
 
 
 # def users(db: Session):

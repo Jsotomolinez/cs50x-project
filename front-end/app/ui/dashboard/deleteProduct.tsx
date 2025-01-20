@@ -18,7 +18,7 @@ export default function DeleteProduct() {
       return;
     }
 
-    const response = await fetch(`${config.rootURL}/products/${productId}`, {
+    const response = await fetch(`${config.rootURL}/products/delete/${productId}`, {
       method: 'DELETE',
     });
 

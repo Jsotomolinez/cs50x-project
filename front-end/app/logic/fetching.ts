@@ -1,7 +1,7 @@
 import config from '@/app/config.json'
-import { ProductInfo } from '../definitons/general';
+import { CartProductInfo, ProductInfo, Transaction_create } from '../definitons/general';
 
-import { getItemsFromCart } from "./cart";
+import { getInfoForMessage, getItemsFromCart } from "./cart";
 
 export async function getIdsForQuery() {
   const cartItems = getItemsFromCart();
@@ -25,18 +25,26 @@ export async function fetchProductsById(): Promise<ProductInfo[] | null> {
     return info;
 }
 
-export
- function sendCart(
-  { action, info }:
-  {
-    action: 'transaction' | 'wishlist',
-    info: JSON
+export async function sendCart(role: 'buy' | 'wishlist') {
+  const products: CartProductInfo[] | undefined = await getInfoForMessage();
+  if (products === undefined) {
+    return;
   }
-) {
-  const url = `${config.rootURL}/${action}/${info}`;
-  fetch(url, {
+  const info = products.map((product) => ({ product_id: product.id, quantity: product.quantity, price: product.price,  }))
+  const requestBody: Transaction_create = { role, info: info };
+  const url = `${config.rootURL}/transactions/create/`;
+  console.log(requestBody)
+  const response = await fetch(url, {
     method: 'POST',
-    body: JSON.stringify(info)
-  })
+    body: JSON.stringify(requestBody),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.log('Error:', errorData);
+  }
 }
   

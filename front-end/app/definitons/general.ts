@@ -15,6 +15,7 @@ export interface ProductDb {
     name: string;
     description: string;
     image: string;
+    cost: number;
     price: number;
     department_id: number;
     brand_id: number;
@@ -32,9 +33,20 @@ export interface Department {
     name: string;
 }
 
+export interface ProviderInfo {
+    name: string;
+    phone_number: string | null;
+    email: string | null;
+}
+
 export interface Line {
     id: number;
     name: string;
+}
+
+export interface LineCreate {
+    name: string;
+    department: string;
 }
 
 export interface CartItem {
@@ -48,4 +60,15 @@ export interface CartProductInfo {
     price: number;
     line: string;
     quantity: number;
+}
+
+export interface Transaction_info{
+    product_id: number;
+    quantity: number;
+    price: number;
+}
+
+export interface Transaction_create{
+    role: 'buy' | 'wishlist';
+    info: Transaction_info[];
 }

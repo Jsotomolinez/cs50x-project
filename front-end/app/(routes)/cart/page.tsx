@@ -80,11 +80,23 @@ export default function ShopCar() {
           action = {handleStorageChange}
         />
         <BuyProducts
+          role="buy"
           action={() => {
             setBought(true);
             handleStorageChange();
           }}
-        />
+        >
+          <h3>Buy</h3>
+        </BuyProducts>
+        <BuyProducts
+          role="wishlist"
+          action={() => {
+            setBought(true);
+            handleStorageChange();
+          }}
+        >
+          <h3>Send Wishlist</h3>
+        </BuyProducts>
       </div>
     }
     </div>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { CartItem } from "@/app/definitons/general";
 import config from '@/app/config.json';
 
@@ -5,6 +6,7 @@ import { buildMessage, removeItemFromCart, removeItemsFromCart } from "@/app/log
 
 import styles from './buttons.module.css'
 import { CartIcon, DeleteIcon, MinusIcon, PlusIcon } from "../icons/icons";
+import { sendCart } from "@/app/logic/fetching";
 
 export function RemoveButton (
   { cartItem, action, size }:
@@ -82,20 +84,25 @@ export function AddToCart (
 
 
 export function BuyProducts(
-  {action}: {action: () => void}
+  { children, action, role }:
+  {
+    children: React.ReactNode,
+    action: () => void,
+    role: 'buy' | 'wishlist',
+  }
 ) {
   let message: string | undefined;
   return (
 
     <div className={styles.remove}>
     <button onClick={async () => {
-      message = await buildMessage();
+      sendCart(role);
+      message = await buildMessage({ role });
       removeItemsFromCart();
       action();
-      console.log(`message= ${message}, `);
       window.open(`https://wa.me/${config.toPhone}?text=${message}`, '_blank');
     }}>
-      <h3>Buy products</h3>
+      {children}
     </button>
   </div>
   )

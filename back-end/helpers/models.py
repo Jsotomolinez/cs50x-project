@@ -98,11 +98,14 @@ class Line_db(BaseModel):
 ########### Provider models ############
 class Provider_info(BaseModel):
     name: str
+    phone_number: str
+    email: str
 
 class Provider_db(BaseModel):
     id: int
     name: str
-    active: bool
+    phone_number: str
+    email: str
 
     class Config:
         from_attributes = True
@@ -112,11 +115,11 @@ class Provider_db(BaseModel):
 
 class Transaction_info(BaseModel):
     product_id: int
-    quantantity: int
+    quantity: int
     price: float
 
 class Transaction_create(BaseModel):
-    role: Literal['buy', 'whishlist']
+    role: Literal['buy', 'wishlist']
     info: List[Transaction_info]
 
 class Transaction_db(Transaction_create):
