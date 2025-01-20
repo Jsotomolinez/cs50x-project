@@ -67,9 +67,15 @@ export async function getInfoForMessage() {
   return productsInfo;
 }
 
-export async function buildMessage() {
+export async function buildMessage({role}: {role: 'buy' | 'wishlist'}) {
+  let message = '';
+  if (role === 'buy'){
+    message += `Hola ${config.name} Quiero hacer la siguiente compra:%0A`;
+  } else {
+    message += `Hola, hice esta wishlist, mirala:%0A`;
+  }
+
   const items: CartProductInfo[] | undefined = await getInfoForMessage();
-  let message = `Hola ${config.name} Quiero hacer la siguiente compra:%0A`;
   let total = 0;
   if (!items) {
     return;

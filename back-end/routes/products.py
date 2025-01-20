@@ -96,6 +96,15 @@ async def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
     return product_info
 
 
+@products_router.get("/get_data_by_id/{product_id}", response_model=Product_db)
+async def get_product_by_id(product_id: int, db: Session = Depends(get_db)):
+    '''Changes dpt, brand and line from id to name'''
+    product = db.query(Product).filter(Product.id == product_id).first()
+    if product is None:
+        raise HTTPException(status_code=404, detail="Product not found")
+    return product
+
+
 @products_router.get("/get_by_name/{product_name}/", response_model=Product_info)
 async def get_product_by_name(product_name: str, db: Session = Depends(get_db)):
     '''Changes dpt, brand and line from id to name'''

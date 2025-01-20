@@ -13,7 +13,7 @@ transactions_router = APIRouter(prefix='/transactions', tags=['transactions'])
 async def create_transaction(transaction: Transaction_create, db: Session = Depends(get_db)):
     total = 0
     for i in transaction.info:
-        total += i.quantantity * i.price
+        total += i.quantity * i.price
     db_transaction = Transaction(
         role=transaction.role,
         info=[dict(i) for i in transaction.info],
