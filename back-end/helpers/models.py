@@ -1,32 +1,27 @@
 from pydantic import BaseModel
-from typing import List, Literal
+from typing import List, Literal, Optional
 from datetime import datetime
 from uuid import UUID
 
 
-# ########### User models ############
-# class User_info(BaseModel):
-#     username: str
-#     email: str
-#     phone_number: str
-#     favorites: str
+########### User models ############
+class User_info(BaseModel):
+    username: str
+    email: str
+    phone_number: str
+    disabled: bool
 
-# class User_create(BaseModel):
-#     username: str
-#     email: str
-#     password: str
-#     phone_number: str
+class User_create(BaseModel):
+    username: str
+    email: str
+    password: str
+    phone_number: str
+    disabled: bool
 
-# class User_db(BaseModel):    
-#     id: int
-#     username: str
-#     email: str
-#     password: str
-#     phone_number: str
-#     favorites: str
-
-#     class Config:
-#         from_attributes = True 
+class User_db(User_create):
+    id: int
+    class Config:
+        from_attributes = True 
 
 
 ########### Product models ############
@@ -50,9 +45,20 @@ class Product_create(BaseModel):
     brand_id: int
     line_id: int
     provider_id: int
+    active: bool
 
 class Product_db(Product_create):
     id: int
+    name: str
+    description: str
+    image: str
+    cost: float
+    price: float
+    department_id: int
+    brand_id: int
+    line_id: int
+    provider_id: int
+    active: bool
     class Config:
         from_attributes = True
 
@@ -98,14 +104,14 @@ class Line_db(BaseModel):
 ########### Provider models ############
 class Provider_info(BaseModel):
     name: str
-    phone_number: str
-    email: str
+    phone_number: Optional[str]
+    email: Optional[str]
 
 class Provider_db(BaseModel):
     id: int
     name: str
-    phone_number: str
-    email: str
+    phone_number: Optional[str]
+    email: Optional[str]
 
     class Config:
         from_attributes = True

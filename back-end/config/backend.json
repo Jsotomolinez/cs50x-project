@@ -1,0 +1,6 @@
+{
+    "version": "0.0.1",
+    "title": "Hope Care",
+    "description": "Pagina web de Hop Care skin care, tienda virtual.",
+    "origins": ["http://localhost:3000"]
+}

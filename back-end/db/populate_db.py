@@ -1,45 +1,31 @@
 from sqlalchemy.orm import Session
 from db.connection import get_db
-from db.schema import Department, Brand, Provider, Line, Product
+from db.schema import Department, Brand, Provider, Line, Product, User
+
+from auth.dependecies import get_password_hash
 
 def populate(db):
-    # users(db)
+    users(db)
     departments(db)
     brands(db)
     providers(db)
     lines(db)
-    # products(db)
+    products(db)
 
 
-# def users(db: Session):
-#     if not db.query(User).first():
-#         db.add_all([
-#             User(
-#                 username="Jesús Soto",
-#                 email="jsotomolinez12@gmail.com",
-#                 password="12345",
-#                 phone_number="0412-0499985"
-#             ),
-#             User(
-#                 username="Alaa Hourani",
-#                 email="AlaaHourani@gmail.com",
-#                 password="contraseña",
-#                 phone_number="0412-5009191"
-#             ),
-#             User(
-#                 username="Esperanza Hong",
-#                 email="HopeCare@gmail.com",
-#                 password="skincare",
-#                 phone_number="0412-19944281"
-#             ),
-#             User(
-#                 username="Ivana Mendoza",
-#                 email="IvanaMenodoza77@gmail.com",
-#                 password="holassss",
-#                 phone_number="0412-8976137"
-#             ),
-#         ])
-#         db.commit()
+def users(db: Session):
+    hash = get_password_hash('12345')
+    if not db.query(User).first():
+        db.add(
+            User(
+                username="soto",
+                email="jsotomolinez12@gmail.com",
+                password=hash,
+                phone_number="0412-0499985",
+                disabled=False
+            )  
+        )
+        db.commit()
 
 
 def departments(db: Session):

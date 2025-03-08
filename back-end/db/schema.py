@@ -10,13 +10,14 @@ import datetime
 Base = declarative_base()
 
 
-# class User(Base):
-#     __tablename__ = 'users'
-#     id = Column(Integer, primary_key=True)
-#     username = Column(String, unique=True)
-#     email = Column(String, unique=True)
-#     password = Column(String)
-#     phone_number = Column(String, unique=True)
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    username = Column(String, unique=True)
+    email = Column(String, unique=True)
+    password = Column(String)
+    phone_number = Column(String, unique=True)
+    disabled = Column(Boolean, default=False)
 
 
 class Department(Base):

@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, Query
 
 from sqlalchemy.orm import Session
-from helpers.models import Product_info, Product_db, Product_create
+from helpers.models import Product_info, Product_db, Product_create, User_db
 from db.connection import get_db
 from db.schema import Product, Line, Brand, Department
 from typing import List
+
+from auth.dependecies import get_current_user
 
 products_router = APIRouter(prefix='/products', tags=["Products"])
 
@@ -131,9 +133,12 @@ async def get_product_by_name(product_name: str, db: Session = Depends(get_db)):
     )
     return product_info
 
-
 @products_router.post("/create/", response_model=Product_db)
-async def create_product(product: Product_create, db: Session = Depends(get_db)):
+async def create_product(
+    product: Product_create,
+    db: Session = Depends(get_db),
+    user = Depends(get_current_user)
+    ):
     '''Create a new product'''
     new_product = Product(
         name=product.name,
@@ -171,6 +176,7 @@ async def update_product(product_id: int, product: Product_create, db: Session =
     db.refresh(product_db)
     return product_db
 
+
 @products_router.put("/activate/{product_id}/", response_model=Product_db)
 async def activate_product(product_id: int, db: Session = Depends(get_db)):
     '''Activate a product'''
@@ -181,6 +187,7 @@ async def activate_product(product_id: int, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(product)
     return product
+
 
 @products_router.put("/deactivate/{product_id}/", response_model=Product_db)
 async def deactivate_product(product_id: int, db: Session = Depends(get_db)):

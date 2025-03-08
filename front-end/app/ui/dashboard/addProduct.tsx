@@ -1,30 +1,34 @@
 'use client'
 
 import { useState } from 'react';
-import { ProductDb } from '@/app/definitons/general';
+import { Brand, CreateProduct, Department, Line, ProviderInfo } from '@/app/definitons/general';
 import styles from './forms.module.css';
 import config from '@/app/config.json'
 
-export default function AddProduct() {
+export default function AddProduct(
+  { brands, departments, lines, providers}:
+  {
+    brands: Brand[] | null;
+    departments: Department[] | null;
+    lines: Line[] | null;
+    providers: ProviderInfo[] | null;
+  }
+) {
 
-  // const departments = fetch(`${config.rootURL}/departments/get_departments`);
-  // const departments = fetch(`${config.rootURL}/departments/get_departments`);
-  // const departments = fetch(`${config.rootURL}/departments/get_departments`);
-  // const departments = fetch(`${config.rootURL}/departments/get_departments`);
-
-  const [product, setProduct] = useState<Omit<ProductDb, 'id'>>({
+  const [departmentId, setDepartmentId] = useState(0);
+  const [product, setProduct] = useState<CreateProduct>({
     name: '',
     description: '',
     image: '',
     cost: 0,
     price: 0,
-    department_id: 0,
-    brand_id: 0,
-    line_id: 0,
-    provider_id: 0,
+    department: '',
+    brand: '',
+    line: '',
+    provider: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
@@ -76,20 +80,43 @@ export default function AddProduct() {
         <input type="number" id="price" name="price" value={product.price} onChange={handleChange} required />
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="department_id">Departamento</label>
-        <input type="number" id="department_id" name="department_id" value={product.department_id} onChange={handleChange} required />
+        <label htmlFor="department">Departamento</label>
+        <select name="department" id="department" value={product.department} onChange={(e) => {
+            handleChange(e);
+            setDepartmentId(departments?.find(dept => dept.name === e.target.value)?.id || 0);
+          }}>
+          {departments && departments.map((department) => {
+            return <option value={department.name} key={`dpt${department.name}`}>{department.name}</option>
+          })}
+        </select>
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="brand_id">Marca</label>
-        <input type="number" id="brand_id" name="brand_id" value={product.brand_id} onChange={handleChange} required />
+        <label htmlFor="brand">Marca</label>
+        <select name="brand" id="brand" value={product.brand} onChange={handleChange}>
+          {brands && brands.map((brand) => {
+            return <option value={brand.name} key={`brand${brand.name}`}>{brand.name}</option>
+          })
+          }
+        </select>
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="line_id">Línea</label>
-        <input type="number" id="line_id" name="line_id" value={product.line_id} onChange={handleChange} required />
+        <select name="line" id="line">
+          {lines && lines.map((line) => {
+            if (line.department_id === departmentId) {
+              return <option value={line.name} key={`line${line.name}`}>{line.name}</option>
+            }
+          })}
+        </select>
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="provider_id">Línea</label>
-        <input type="number" id="provider_id" name="provider_id" value={product.provider_id} onChange={handleChange} required />
+        <label htmlFor="provider">Proveedor</label>
+        <select name="provider" id="provider">
+          {providers && providers.map((provider) => {
+            return <option value={provider.name} key={`provider${provider.name}`}>{provider.name}</option>
+            }
+          )}
+        </select>
       </div>
 
       <button type="submit">Crear Producto</button>

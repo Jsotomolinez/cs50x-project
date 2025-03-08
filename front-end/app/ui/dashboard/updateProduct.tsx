@@ -1,25 +1,35 @@
 'use client'
 
 import { useState } from 'react';
-import { ProductDb } from '@/app/definitons/general';
+import { Brand, CreateProduct, Department, Line, ProviderInfo } from '@/app/definitons/general';
 import styles from './forms.module.css';
 import config from '@/app/config.json'
 
-export default function UpdateProduct() {
+export default function UpdateProduct(
+  { brands, departments, lines, providers}:
+    {
+      brands: Brand[] | null;
+      departments: Department[] | null;
+      lines: Line[] | null;
+      providers: ProviderInfo[] | null;
+    }
+  ) {
+
+  const [departmentId, setDepartmentId] = useState(0);
   const [productId, setProductId] = useState<number | ''>('');
-  const [product, setProduct] = useState<Omit<ProductDb, 'id'>>({
+  const [product, setProduct] = useState<CreateProduct>({
     name: '',
     description: '',
     image: '',
     cost: 0,
     price: 0,
-    department_id: 0,
-    brand_id: 0,
-    line_id: 0,
-    provider_id: 0,
+    department: '',
+    brand: '',
+    line: '',
+    provider: '',
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setProduct((prevProduct) => ({
       ...prevProduct,
@@ -39,17 +49,17 @@ export default function UpdateProduct() {
 
     const response = await fetch(`${config.rootURL}/products/get_data_by_id/${productId}`);
     if (response.ok) {
-      const productData: ProductDb = await response.json();
+      const productData: CreateProduct = await response.json();
       setProduct({
         name: productData.name,
         description: productData.description,
         image: productData.image,
         cost: productData.cost,
         price: productData.price,
-        department_id: productData.department_id,
-        brand_id: productData.brand_id,
-        line_id: productData.line_id,
-        provider_id: productData.provider_id,
+        department: productData.department,
+        brand: productData.brand,
+        line: productData.line,
+        provider: productData.provider,
       });
     } else {
       console.error('Error al cargar los datos del producto');
@@ -114,20 +124,43 @@ export default function UpdateProduct() {
         <input type="number" id="price" name="price" value={product.price} onChange={handleChange} required />
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="department_id">Departamento</label>
-        <input type="number" id="department_id" name="department_id" value={product.department_id} onChange={handleChange} required />
+        <label htmlFor="department">Departamento</label>
+        <select name="department" id="department" value={product.department} onChange={(e) => {
+            handleChange(e);
+            setDepartmentId(departments?.find(dept => dept.name === e.target.value)?.id || 0);
+          }}>
+          {departments && departments.map((department) => {
+            return <option value={department.name} key={`dpt${department.name}`}>{department.name}</option>
+          })}
+        </select>
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="brand_id">Marca</label>
-        <input type="number" id="brand_id" name="brand_id" value={product.brand_id} onChange={handleChange} required />
+        <label htmlFor="brand">Marca</label>
+        <select name="brand" id="brand" value={product.brand} onChange={handleChange}>
+          {brands && brands.map((brand) => {
+            return <option value={brand.name} key={`brand${brand.name}`}>{brand.name}</option>
+          })
+          }
+        </select>
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="line_id">Línea</label>
-        <input type="number" id="line_id" name="line_id" value={product.line_id} onChange={handleChange} required />
+        <select name="line" id="line">
+          {lines && lines.map((line) => {
+            if (line.department_id === departmentId) {
+              return <option value={line.name} key={`line${line.name}`}>{line.name}</option>
+            }
+          })}
+        </select>
       </div>
       <div className={styles.formGroup}>
-        <label htmlFor="provider_id">Línea</label>
-        <input type="number" id="provider_id" name="provider_id" value={product.provider_id} onChange={handleChange} required />
+        <label htmlFor="provider">Proveedor</label>
+        <select name="provider" id="provider">
+          {providers && providers.map((provider) => {
+            return <option value={provider.name} key={`provider${provider.name}`}>{provider.name}</option>
+            }
+          )}
+        </select>
       </div>
       <button type="submit">Actualizar Producto</button>
     </form>

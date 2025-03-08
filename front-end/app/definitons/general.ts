@@ -10,6 +10,12 @@ export interface ProductInfo {
     line: string;
 }
 
+
+export interface CreateProduct extends Omit<ProductInfo, 'id'> {
+    provider: string
+}
+
+
 export interface ProductDb {
     id: number;
     name: string;
@@ -22,6 +28,7 @@ export interface ProductDb {
     line_id: number;
     provider_id: number;
 }
+
 
 export interface Brand {
     id: number;
@@ -42,6 +49,7 @@ export interface ProviderInfo {
 export interface Line {
     id: number;
     name: string;
+    department_id: number;
 }
 
 export interface LineCreate {
